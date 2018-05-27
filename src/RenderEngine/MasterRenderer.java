@@ -34,11 +34,21 @@ public class MasterRenderer
 	
 	public MasterRenderer ()
 	{
-		GL11.glEnable(GL11.GL_CULL_FACE); //Back face culling
-		GL11.glCullFace(GL11.GL_BACK);
+		EnableCulling();
 		CreateProjectionMatrix();
 		renderer = new EntityRenderer(shader, projectionMatrix);
 		terrainRenderer = new TerrainRenderer(terrainShader, projectionMatrix);
+	}
+	
+	public static void EnableCulling ()
+	{
+		GL11.glEnable(GL11.GL_CULL_FACE);
+		GL11.glCullFace(GL11.GL_BACK);
+	}
+	
+	public static void DisableCulling ()
+	{
+		GL11.glDisable(GL11.GL_CULL_FACE);
 	}
 	
 	public void Render (Light sun, Camera cam)

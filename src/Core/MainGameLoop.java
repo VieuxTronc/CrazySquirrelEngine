@@ -24,18 +24,27 @@ public class MainGameLoop
 		
 		Loader loader = new Loader(); 
 
-		RawModel model = ObjLoader.LoadObjModel("dragon", loader); 
-		TexturedModel staticModel = new TexturedModel(model, new ModelTexture(loader.LoadTexture("dragonTexture"))); 
+		//Dragon
+		TexturedModel dragonModel = new TexturedModel(ObjLoader.LoadObjModel("dragon", loader), new ModelTexture(loader.LoadTexture("dragonTexture"))); 
+		Entity dragonEntity = new Entity(dragonModel, new Vector3f(0,-4,-25), 0, 0, 0, 1);
 		//ModelTexture texture = staticModel.getTexture();
 		//texture.setShineDamper(10);
 		//texture.setReflectivity(1);
 		
-		Entity entity = new Entity(staticModel, new Vector3f(0,-4,-25), 0, 0, 0, 1);
+		//Grass
+		TexturedModel grassModel = new TexturedModel(ObjLoader.LoadObjModel("grassModel", loader), new ModelTexture(loader.LoadTexture("grassTexture")));
+		grassModel.getTexture().setHasTransparency(true);
+		grassModel.getTexture().setUseFakeLightning(false);
+		Entity grassEntity = new Entity(grassModel, new Vector3f(1, 1, -5), 0, 0, 0, 1);
+		
+		//Light
 		Light light = new Light(new Vector3f(0,0,-20), new Vector3f(1,1,1));
 		
+		//Terrain
 		Terrain terrain = new Terrain(-1, -1, loader, new ModelTexture(loader.LoadTexture("ground")));
 		Terrain terrain2 = new Terrain(-2, -2, loader, new ModelTexture(loader.LoadTexture("ground")));
 		
+		//Camera
 		Camera camera = new Camera();
 		
 		MasterRenderer renderer = new MasterRenderer();
@@ -46,7 +55,7 @@ public class MainGameLoop
 
 			//rendering
 			//entity.IncreasePosition(0, 0, 0);
-			entity.IncreaseRotation(0, 0.2f, 0);
+			dragonEntity.IncreaseRotation(0, 0.2f, 0);
 			
 			camera.Move();
 			//Debug.DebugLog(camera.getPosition().toString());
@@ -54,7 +63,9 @@ public class MainGameLoop
 			renderer.ProcessTerrain(terrain);
 			renderer.ProcessTerrain(terrain2);
 			
-			renderer.ProcessEntity(entity);
+			renderer.ProcessEntity(dragonEntity);
+			renderer.ProcessEntity(grassEntity);
+			
 			renderer.Render(light, camera);
 			DisplayManager.UpdateDisplay();
 		}

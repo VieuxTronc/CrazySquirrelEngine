@@ -20,6 +20,8 @@ public class StaticShader extends ShaderProgram
 	private int location_shineDamper;
 	private int location_reflectivity;
 	
+	private int location_fakeLighting; 
+	
 	public StaticShader ()
 	{
 		super(VERTEX_FILE, FRAGMENT_FILE); 
@@ -43,6 +45,7 @@ public class StaticShader extends ShaderProgram
 		location_lightColor = super.GetUniformLocation("lightColor");
 		location_shineDamper = super.GetUniformLocation("shineDamper");
 		location_reflectivity = super.GetUniformLocation("reflectivity"); 
+		location_fakeLighting = super.GetUniformLocation("useFakeLightning");
 	}
 	
 	public void LoadTransformationMatrix(Matrix4f mat)
@@ -71,5 +74,10 @@ public class StaticShader extends ShaderProgram
 	{
 		super.LoadFloat(location_shineDamper, damper);
 		super.LoadFloat(location_reflectivity, reflectivity);
+	}
+	
+	public void LoadFakeLightning (boolean useFakeLightning)
+	{
+		super.LoadBoolean(location_fakeLighting, useFakeLightning);
 	}
 }

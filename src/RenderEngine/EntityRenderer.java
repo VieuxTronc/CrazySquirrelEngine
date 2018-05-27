@@ -50,6 +50,13 @@ public class EntityRenderer
 		GL20.glEnableVertexAttribArray(1);
 		GL20.glEnableVertexAttribArray(2);
 		ModelTexture texture = model.getTexture();
+		
+		if (texture.isHasTransparency())
+		{
+			MasterRenderer.DisableCulling();
+		}
+		
+		shader.LoadFakeLightning(texture.isUseFakeLightning());
 		shader.LoadShineVariables(texture.getShineDamper(), texture.getReflectivity());
 		
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
@@ -58,6 +65,7 @@ public class EntityRenderer
 	
 	private void UnbindTexturedModels ()
 	{
+		MasterRenderer.EnableCulling();
 		GL20.glDisableVertexAttribArray(0);
 		GL20.glDisableVertexAttribArray(1);
 		GL20.glDisableVertexAttribArray(2);
