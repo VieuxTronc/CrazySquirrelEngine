@@ -38,9 +38,4 @@ public class Console extends JFrame
 		
 		this.setVisible(true);		
 	}
-	
-	public void CloseConsole ()
-	{
-		System.exit(0);
-	}
 }

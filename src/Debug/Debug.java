@@ -2,8 +2,6 @@ package Debug;
 
 public class Debug 
 {
-	Console console; 
-	
 	public static void DebugLog (String msg)
 	{
 		Console.textArea.append("[LOG] - " + msg + "\n");

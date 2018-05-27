@@ -9,18 +9,32 @@ public class Terrain
 	private static final float SIZE = 800; 
 	private static final int VERTEX_COUNT = 128;
 	
+	//Position in the world
 	private float x; 
 	private float z;
 	private RawModel model; 
 	private ModelTexture texture; 
-	
+
 	public Terrain (int gridX, int gridZ, Loader loader, ModelTexture _texture)
 	{
 		texture = _texture; 
-		x = gridX; 
-		z = gridZ; 
+		x = gridX * SIZE; 
+		z = gridZ * SIZE; 
+		model = GenerateTerrain(loader);
 	}
 	
+	public float getX() {return x;}
+	public void setX(float x) {this.x = x;}
+
+	public float getZ() {return z;}
+	public void setZ(float z) {this.z = z;}
+
+	public RawModel getModel() {return model;}
+	public void setModel(RawModel model) {this.model = model;}
+
+	public ModelTexture getTexture() {return texture;}
+	public void setTexture(ModelTexture texture) {this.texture = texture;}
+
 	private RawModel GenerateTerrain(Loader loader)
 	{
 		int count = VERTEX_COUNT * VERTEX_COUNT;
@@ -32,7 +46,7 @@ public class Terrain
 		
 		for(int i = 0; i<VERTEX_COUNT; i++)
 		{
-			for(int j = 0; j<VERTEX_COUNT; j++)
+			for(int j = 0; j < VERTEX_COUNT; j++)
 			{
 				vertices[vertexPointer * 3] = (float)j / ((float)VERTEX_COUNT - 1) * SIZE;
 				vertices[vertexPointer * 3 + 1] = 0;
