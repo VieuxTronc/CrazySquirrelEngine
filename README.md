@@ -1,4 +1,4 @@
--- CrazySquirrelEngine
+-- CrazySquirrelEngine --
 
 # What ? 
 Personal project for educational purpose only. 
@@ -11,9 +11,11 @@ Because I know nothing about engine programming.
 Tutorial I'm following : https://www.youtube.com/watch?v=VS8wlS9hF8E&list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP
 
 # Current features 
-- logger 
-- basic lightning source 
-- basic reflection 
-- camera 
-- camera input 
+- Logger 
+- Basic lightning source 
+- Basic reflection 
+- Camera 
+- Camera input 
 - .obj parser 
+- Terrain generation 
+- Editor GUI set up 
