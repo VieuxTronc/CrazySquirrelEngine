@@ -2,13 +2,18 @@ package Core;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
+
 import Debug.Console;
-import Editor.EditorWindow;
-import Entities.*;
-import Models.*;
-import RenderEngine.*;
+import Entities.Camera;
+import Entities.Entity;
+import Models.Light;
+import Models.TexturedModel;
+import RenderEngine.DisplayManager;
+import RenderEngine.Loader;
+import RenderEngine.MasterRenderer;
+import RenderEngine.ObjLoader;
 import Terrains.Terrain;
-import Textures.*;
+import Textures.ModelTexture;
 
 public class MainGameLoop 
 {

@@ -9,9 +9,7 @@ import org.lwjgl.opengl.GL30;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
-import Entities.Entity;
 import Models.RawModel;
-import Models.TexturedModel;
 import Shaders.TerrainShader;
 import Terrains.Terrain;
 import Textures.ModelTexture;

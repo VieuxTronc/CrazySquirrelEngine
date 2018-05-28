@@ -1,6 +1,8 @@
 package Shaders;
 
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
+
 import Entities.Camera;
 import Models.Light;
 import Utils.Maths;
@@ -19,6 +21,8 @@ public class TerrainShader extends ShaderProgram
 	
 	private int location_shineDamper;
 	private int location_reflectivity;
+	
+	private int location_skyColor; 
 	
 	public TerrainShader ()
 	{
@@ -43,6 +47,7 @@ public class TerrainShader extends ShaderProgram
 		location_lightColor = super.GetUniformLocation("lightColor");
 		location_shineDamper = super.GetUniformLocation("shineDamper");
 		location_reflectivity = super.GetUniformLocation("reflectivity"); 
+		location_skyColor = super.GetUniformLocation("skyColor");
 	}
 	
 	public void LoadTransformationMatrix(Matrix4f mat)
@@ -71,5 +76,10 @@ public class TerrainShader extends ShaderProgram
 	{
 		super.LoadFloat(location_shineDamper, damper);
 		super.LoadFloat(location_reflectivity, reflectivity);
+	}
+	
+	public void LoadSkyColor (float r, float g, float b)
+	{
+		super.LoadVector(location_skyColor, new Vector3f(r,g,b));
 	}
 }

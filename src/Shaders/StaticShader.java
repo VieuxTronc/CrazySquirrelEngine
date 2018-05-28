@@ -1,6 +1,8 @@
 package Shaders;
 
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
+
 import Entities.Camera;
 import Models.Light;
 import Utils.Maths;
@@ -20,7 +22,9 @@ public class StaticShader extends ShaderProgram
 	private int location_shineDamper;
 	private int location_reflectivity;
 	
-	private int location_fakeLighting; 
+	private int location_fakeLighting;
+	
+	private int location_skyColor;
 	
 	public StaticShader ()
 	{
@@ -46,6 +50,7 @@ public class StaticShader extends ShaderProgram
 		location_shineDamper = super.GetUniformLocation("shineDamper");
 		location_reflectivity = super.GetUniformLocation("reflectivity"); 
 		location_fakeLighting = super.GetUniformLocation("useFakeLightning");
+		location_skyColor = super.GetUniformLocation("skyColor");
 	}
 	
 	public void LoadTransformationMatrix(Matrix4f mat)
@@ -79,5 +84,10 @@ public class StaticShader extends ShaderProgram
 	public void LoadFakeLightning (boolean useFakeLightning)
 	{
 		super.LoadBoolean(location_fakeLighting, useFakeLightning);
+	}
+	
+	public void LoadSkyColor (float r, float g, float b)
+	{
+		super.LoadVector(location_skyColor, new Vector3f(r,g,b));
 	}
 }
