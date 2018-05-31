@@ -24,6 +24,12 @@ public class TerrainShader extends ShaderProgram
 	
 	private int location_skyColor; 
 	
+	private int location_backgroundTexture; 
+	private int location_rTexture; 
+	private int location_gTexture; 
+	private int location_bTexture; 
+	private int location_blendMap; 
+	
 	public TerrainShader ()
 	{
 		super(VERTEX_FILE, FRAGMENT_FILE); 
@@ -48,6 +54,11 @@ public class TerrainShader extends ShaderProgram
 		location_shineDamper = super.GetUniformLocation("shineDamper");
 		location_reflectivity = super.GetUniformLocation("reflectivity"); 
 		location_skyColor = super.GetUniformLocation("skyColor");
+		location_backgroundTexture = super.GetUniformLocation("");
+		location_rTexture = super.GetUniformLocation("rTexture");
+		location_gTexture = super.GetUniformLocation("gTexture");
+		location_bTexture = super.GetUniformLocation("bTexture");
+		location_blendMap = super.GetUniformLocation("blendMap");
 	}
 	
 	public void LoadTransformationMatrix(Matrix4f mat)
@@ -81,5 +92,14 @@ public class TerrainShader extends ShaderProgram
 	public void LoadSkyColor (float r, float g, float b)
 	{
 		super.LoadVector(location_skyColor, new Vector3f(r,g,b));
+	}
+	
+	public void ConnectTextureUnits ()
+	{
+		super.LoadInt(location_backgroundTexture, 0);
+		super.LoadInt(location_rTexture, 1);
+		super.LoadInt(location_gTexture, 2);
+		super.LoadInt(location_bTexture, 3);
+		super.LoadInt(location_blendMap, 4);
 	}
 }

@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 
 public class EditorWindow extends JFrame 
 {
+	private static final long serialVersionUID = 1L;
 	private static final Color BLUE = new Color(200, 200, 255);
 
 	public EditorWindow ()
@@ -41,6 +42,7 @@ public class EditorWindow extends JFrame
 
 class ColorPanel extends JPanel 
 {
+	private static final long serialVersionUID = 1L;
 	private static final float FONT_POINTS = 24f;
 	private int prefW;
 	private int prefH;

@@ -12,13 +12,14 @@ import javax.swing.text.DefaultCaret;
 
 public class Console extends JFrame 
 {
+	private static final long serialVersionUID = 1L;
 	public static JTextArea textArea = new JTextArea();
 	
 	public Console() 
 	{
 		this.setTitle("Debug Log");
 		this.setIconImage(null);
-		this.setSize(500, 300);
+		this.setSize(900, 600);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
 		this.setAlwaysOnTop(true);
@@ -38,5 +39,10 @@ public class Console extends JFrame
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		
 		this.setVisible(true);		
+	}
+	
+	public void CloseConsole ()
+	{
+		this.dispose();
 	}
 }

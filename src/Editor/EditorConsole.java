@@ -13,6 +13,7 @@ import javax.swing.text.DefaultCaret;
 
 public class EditorConsole extends JPanel 
 {
+	private static final long serialVersionUID = 1L;
 	private JTextArea textArea = new JTextArea();
 	private int prefX; 
 	private int prefY;

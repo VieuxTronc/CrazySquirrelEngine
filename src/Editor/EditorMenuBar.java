@@ -5,6 +5,8 @@ import javax.swing.JMenuBar;
 
 public class EditorMenuBar extends JMenuBar
 {
+	private static final long serialVersionUID = 1L;
+
 	public EditorMenuBar ()
 	{
 	    JMenu menu = new JMenu("Files");	    

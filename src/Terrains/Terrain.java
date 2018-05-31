@@ -2,7 +2,8 @@ package Terrains;
 
 import Models.RawModel;
 import RenderEngine.Loader;
-import Textures.ModelTexture;
+import Textures.TerrainTexture;
+import Textures.TerrainTexturePack;
 
 public class Terrain 
 {
@@ -13,14 +14,16 @@ public class Terrain
 	private float x; 
 	private float z;
 	private RawModel model; 
-	private ModelTexture texture; 
+	private TerrainTexturePack texturePack;
+	private TerrainTexture blendMap; 
 
-	public Terrain (int gridX, int gridZ, Loader loader, ModelTexture _texture)
+	public Terrain (int gridX, int gridZ, Loader loader, TerrainTexturePack terrainTexture, TerrainTexture blendmap)
 	{
-		texture = _texture; 
-		x = gridX * SIZE; 
-		z = gridZ * SIZE; 
-		model = GenerateTerrain(loader);
+		this.texturePack = terrainTexture;
+		this.blendMap = blendmap;
+		this.x = gridX * SIZE; 
+		this.z = gridZ * SIZE; 
+		this.model = GenerateTerrain(loader);
 	}
 	
 	public float getX() {return x;}
@@ -32,8 +35,8 @@ public class Terrain
 	public RawModel getModel() {return model;}
 	public void setModel(RawModel model) {this.model = model;}
 
-	public ModelTexture getTexture() {return texture;}
-	public void setTexture(ModelTexture texture) {this.texture = texture;}
+	public TerrainTexturePack getTexturePack() {return texturePack;}
+	public TerrainTexture getBlendMap() {return blendMap;}
 
 	private RawModel GenerateTerrain(Loader loader)
 	{

@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 public class EditorToolBar extends JPanel 
 {
+	private static final long serialVersionUID = 1L;
 	private int prefX; 
 	private int prefY;
 	

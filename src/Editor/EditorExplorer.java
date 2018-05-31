@@ -13,6 +13,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public class EditorExplorer extends JPanel 
 {
+	private static final long serialVersionUID = 1L;
 	private int prefX; 
 	private int prefY;
 	private JTree tree;
