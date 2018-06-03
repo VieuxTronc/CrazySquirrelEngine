@@ -27,7 +27,7 @@ public class DisplayManager
 			Display.create(new PixelFormat(), attribs);
 			Display.setTitle("Crazy Squirrel Engine");
 			Display.setResizable(false);
-		} 
+		}  
 		catch (LWJGLException e) 
 		{
 			e.printStackTrace();

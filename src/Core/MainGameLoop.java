@@ -2,6 +2,7 @@ package Core;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Random;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 import Debug.Console;
@@ -68,8 +69,13 @@ public class MainGameLoop
 		//Box 
 		TexturedModel box = new TexturedModel(ObjLoader.LoadObjModel("box", loader), new ModelTexture(loader.LoadTexture("box")));
 		Entity boxEntity = new Entity(box, new Vector3f(55, 5, 55), 0, 0, 0, 5);
-		
 		Entity boxEntity2 = new Entity(box, new Vector3f(55, 5, 80), 0, 0, 0, 5);
+		
+		//Fern
+		ModelTexture fernModelTexture = new ModelTexture(loader.LoadTexture("fern"));
+		fernModelTexture.setNumberOfRows(2);
+		TexturedModel fern = new TexturedModel(ObjLoader.LoadObjModel("fern", loader), fernModelTexture);
+		Entity fernEntity = new Entity(fern, 2, new Vector3f(60, 5, 65), 0, 0, 0, 1);
 		
 		//Player 
 		Player player = new Player(dragonModel, new Vector3f(0, 2, -4), 0, 0, 0, 1);
@@ -102,6 +108,7 @@ public class MainGameLoop
 			renderer.ProcessTerrain(terrain);
 			
 			renderer.ProcessEntity(grassEntity);
+			renderer.ProcessEntity(fernEntity);
 			
 			renderer.Render(light, camera);
 			DisplayManager.UpdateDisplay();

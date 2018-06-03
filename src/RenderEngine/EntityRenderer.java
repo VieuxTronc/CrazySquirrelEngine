@@ -51,6 +51,7 @@ public class EntityRenderer
 		GL20.glEnableVertexAttribArray(1);
 		GL20.glEnableVertexAttribArray(2);
 		ModelTexture texture = model.getTexture();
+		shader.LoadNumberOfRows(texture.getNumberOfRows());
 		
 		if (texture.isHasTransparency())
 		{
@@ -77,6 +78,7 @@ public class EntityRenderer
 	{
 		Matrix4f transformationMatrix = Maths.CreateTransformMatrix(entity.getPosition(), entity.getRotX(), entity.getRotY(), entity.getRotZ(), entity.getScale());
 		shader.LoadTransformationMatrix(transformationMatrix);
+		shader.LoadOffset(entity.GetTextureXOffest(), entity.GetTextureYOffest());
 	}
 }
 

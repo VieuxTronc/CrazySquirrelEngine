@@ -10,6 +10,7 @@ public class Entity
 	private Vector3f position; 
 	private float rotX, rotY, rotZ; 
 	private float scale;
+	private int textureIndex = 0;
 	
 	public Entity (TexturedModel _model, Vector3f _position, float _rotX, float _rotY, float _rotZ, float _scale)
 	{
@@ -20,7 +21,30 @@ public class Entity
 		rotZ = _rotZ;
 		scale = _scale;
 	}
+	
+	public Entity (TexturedModel _model, int _index, Vector3f _position, float _rotX, float _rotY, float _rotZ, float _scale)
+	{
+		model = _model; 
+		textureIndex = _index; 
+		position = _position;
+		rotX = _rotX;
+		rotY = _rotY;
+		rotZ = _rotZ;
+		scale = _scale;
+	}
+	
+	public float GetTextureXOffest ()
+	{
+		int column = textureIndex % model.getTexture().getNumberOfRows();
+		return (float) column / (float) model.getTexture().getNumberOfRows();
+	}
 
+	public float GetTextureYOffest ()
+	{
+		int rows = textureIndex / model.getTexture().getNumberOfRows();
+		return (float) rows / (float) model.getTexture().getNumberOfRows();
+	}
+	
 	public TexturedModel getModel() {return model;}
 	public void setModel(TexturedModel model) {this.model = model;}
 

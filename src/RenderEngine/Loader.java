@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
-
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
@@ -67,7 +66,7 @@ public class Loader
 		for(int vao:vaos)
 		{
 			GL30.glDeleteVertexArrays(vao);
-		}
+		} 
 		for(int vbo:vbos)
 		{
 			GL15.glDeleteBuffers(vbo);

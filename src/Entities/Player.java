@@ -2,7 +2,6 @@ package Entities;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
-import Debug.Debug;
 import Models.TexturedModel;
 import RenderEngine.DisplayManager;
 import Terrains.Terrain;
