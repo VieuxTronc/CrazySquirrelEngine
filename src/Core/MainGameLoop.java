@@ -70,12 +70,11 @@ public class MainGameLoop
 		Terrain terrain = new Terrain(-1, -1, loader, texturePack, blendMap);
 		Terrain terrain2 = new Terrain(-2, -2, loader, texturePack, blendMap);
 		
-		//Camera
-		Camera camera = new Camera();
-		camera.setPosition(new Vector3f(0, 2, -1));
-		
 		//Player 
 		Player player = new Player(dragonModel, new Vector3f(0, 2, -4), 0, 0, 0, 1);
+		
+		//Camera
+		Camera camera = new Camera(player);
 		
 		//Scene
 		entitiesList.add(grassEntity);
@@ -93,8 +92,8 @@ public class MainGameLoop
 
 			//rendering
 			//dragonEntity.IncreaseRotation(0, 0.2f, 0);
+			camera.Move();
 			player.Move();
-			//camera.Move();
 			
 			renderer.ProcessEntity(player);
 			

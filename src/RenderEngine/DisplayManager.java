@@ -25,7 +25,7 @@ public class DisplayManager
 		{
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.create(new PixelFormat(), attribs);
-			Display.setTitle("Squirrel Engine");
+			Display.setTitle("Crazy Squirrel Engine");
 			Display.setResizable(false);
 		} 
 		catch (LWJGLException e) 

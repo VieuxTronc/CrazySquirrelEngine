@@ -79,3 +79,4 @@ public class EntityRenderer
 		shader.LoadTransformationMatrix(transformationMatrix);
 	}
 }
+
