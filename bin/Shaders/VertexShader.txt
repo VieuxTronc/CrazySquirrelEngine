@@ -22,13 +22,17 @@ uniform float useFakeLightning;
 const float density = 0.007;
 const float gradient = 1.5; 
 
+//Atlas 
+uniform float numberOfRows;
+uniform vec2 Offset;
+
 void main (void)
 {
 	vec4 worldPosition = transformationMatrix * vec4(position, 1.0); 
 	vec4 positionRelativeToCam = viewMatrix * worldPosition;
 	
 	gl_Position = projectionMatrix * positionRelativeToCam; 
-	pass_textureCoords = textureCoords;
+	pass_textureCoords = (textureCoords / numberOfRows) + Offset;
 	
 	vec3 actualNormal = normal; 
 	

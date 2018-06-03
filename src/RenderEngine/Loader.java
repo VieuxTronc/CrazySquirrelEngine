@@ -33,6 +33,14 @@ public class Loader
 		UnbindVAO();
 		return new RawModel(VaoID, indices.length); 
 	}
+	
+	public RawModel loadToVAO (float[] positions)
+	{
+		int VaoID = CreateVAO();
+		this.StoreDataAttributeList(0, 2, positions);
+		UnbindVAO();
+		return new RawModel(VaoID, positions.length / 2); 
+	}
 	 
 	public int LoadTexture (String fileName)
 	{

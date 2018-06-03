@@ -2,14 +2,16 @@ package Core;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Random;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import Debug.Console;
 import Debug.Debug;
 import Entities.Camera;
 import Entities.Entity;
 import Entities.Player;
+import Guis.GuiRenderer;
+import Guis.GuiTexture;
 import Models.Light;
 import Models.RawModel;
 import Models.TexturedModel;
@@ -92,6 +94,14 @@ public class MainGameLoop
 		Scene scene_1 = new Scene("scene_1", entitiesList, ligthList, terrainList);
 		Debug.DebugLog("SCENE - Name : " + scene_1.getSceneName().toString() + " // Created : " + scene_1.getCreation().format(DateTimeFormatter.BASIC_ISO_DATE).toString()); 
 		
+		//GUIS
+		ArrayList<GuiTexture> guiList = new ArrayList<>();
+		GuiTexture guiTexture = new GuiTexture(loader.LoadTexture("engine"), new Vector2f(0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
+		GuiTexture guiTexture2 = new GuiTexture(loader.LoadTexture("engine"), new Vector2f(0.4f, 0.4f), new Vector2f(0.25f, 0.25f));
+		guiList.add(guiTexture);
+		guiList.add(guiTexture2);
+		GuiRenderer guiRenderer = new GuiRenderer(loader);
+		
 		while(!Display.isCloseRequested())
 		{
 			//game logic
@@ -111,9 +121,13 @@ public class MainGameLoop
 			renderer.ProcessEntity(fernEntity);
 			
 			renderer.Render(light, camera);
+			
+			guiRenderer.Render(guiList);
+			
 			DisplayManager.UpdateDisplay();
 		}
 		
+		guiRenderer.CleanUp();
 		renderer.CleanUp();
 		loader.CleanUp();
 		console.CloseConsole();
