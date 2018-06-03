@@ -5,10 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
-
 import Models.RawModel;
 
 public class ObjLoader 
@@ -32,7 +30,7 @@ public class ObjLoader
 		ArrayList<Vector3f> vertices = new ArrayList<Vector3f>(); 
 		ArrayList<Vector2f> textures = new ArrayList<Vector2f>();
 		ArrayList<Vector3f> normals = new ArrayList<Vector3f>();
-		ArrayList<Integer> indices = new ArrayList<Integer>();
+		ArrayList<Integer> indices = new ArrayList<Integer>(); 
 		float[] verticesArray = null; 
 		float[] normalsArray = null;
 		float[] textureArray = null;

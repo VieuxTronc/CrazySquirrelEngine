@@ -1,5 +1,5 @@
 package RenderEngine;
-
+ 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
@@ -33,7 +34,7 @@ public class Loader
 		UnbindVAO();
 		return new RawModel(VaoID, indices.length); 
 	}
-	
+	 
 	public int LoadTexture (String fileName)
 	{
 		Texture texture = null;
@@ -41,6 +42,11 @@ public class Loader
 		try
 		{
 			texture = TextureLoader.getTexture("PNG", new FileInputStream("res/"+fileName+".png")); 
+			
+			//Mip map generation
+			GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
+			GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, - 0.4f); //Texture resolution
 		}
 		catch (FileNotFoundException e) 
 		{
@@ -85,7 +91,7 @@ public class Loader
 		int VboID = GL15.glGenBuffers();
 		vbos.add(VboID); 
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VboID);
-		FloatBuffer buffer = storeDataInFloatBuffer(data); 
+		FloatBuffer buffer = StoreDataInFloatBuffer(data); 
 		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_STREAM_DRAW);
 		GL20.glVertexAttribPointer(attributeMember, coordinateSize, GL11.GL_FLOAT, false, 0, 0);
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
@@ -101,11 +107,11 @@ public class Loader
 		int VboID = GL15.glGenBuffers();
 		vbos.add(VboID);
 		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, VboID);
-		IntBuffer buffer = storeDataInIntBuffer(indices);
+		IntBuffer buffer = StoreDataInIntBuffer(indices);
 		GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
 	}
 	
-	private IntBuffer storeDataInIntBuffer (int[] data)
+	private IntBuffer StoreDataInIntBuffer (int[] data)
 	{
 		IntBuffer buffer = BufferUtils.createIntBuffer(data.length);
 		buffer.put(data);
@@ -113,7 +119,7 @@ public class Loader
 		return buffer; 
 	}
 	
-	private FloatBuffer storeDataInFloatBuffer (float [] data)
+	private FloatBuffer StoreDataInFloatBuffer (float [] data)
 	{
 		FloatBuffer buffer = BufferUtils.createFloatBuffer(data.length); 
 		buffer.put(data);

@@ -67,12 +67,18 @@ public class MainGameLoop
 		TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
 		TerrainTexture blendMap = new TerrainTexture(loader.LoadTexture("blendMap"));
 		
-		Terrain terrain = new Terrain(-1, -1, loader, texturePack, blendMap);
-		Terrain terrain2 = new Terrain(-2, -2, loader, texturePack, blendMap);
+		Terrain terrain = new Terrain(0, 0, loader, texturePack, blendMap);
+		//Terrain terrain2 = new Terrain(-2, -2, loader, texturePack, blendMap);
+		
+		//Box 
+		TexturedModel box = new TexturedModel(ObjLoader.LoadObjModel("box", loader), new ModelTexture(loader.LoadTexture("box")));
+		Entity boxEntity = new Entity(box, new Vector3f(55, 5, 55), 0, 0, 0, 5);
+		
+		Entity boxEntity2 = new Entity(box, new Vector3f(55, 5, 80), 0, 0, 0, 5);
 		
 		//Player 
 		Player player = new Player(dragonModel, new Vector3f(0, 2, -4), 0, 0, 0, 1);
-		
+		player.setPosition(new Vector3f(50, 0, 50));
 		//Camera
 		Camera camera = new Camera(player);
 		
@@ -81,7 +87,7 @@ public class MainGameLoop
 		//entitiesList.add(dragonEntity);
 		ligthList.add(light);
 		terrainList.add(terrain);
-		terrainList.add(terrain2);
+		//terrainList.add(terrain2);
 		
 		Scene scene_1 = new Scene("scene_1", entitiesList, ligthList, terrainList);
 		Debug.DebugLog("SCENE - Name : " + scene_1.getSceneName().toString() + " // Created : " + scene_1.getCreation().format(DateTimeFormatter.BASIC_ISO_DATE).toString()); 
@@ -95,10 +101,13 @@ public class MainGameLoop
 			camera.Move();
 			player.Move();
 			
+			renderer.ProcessEntity(boxEntity);
+			renderer.ProcessEntity(boxEntity2);
+
 			renderer.ProcessEntity(player);
 			
 			renderer.ProcessTerrain(terrain);
-			renderer.ProcessTerrain(terrain2);
+			//renderer.ProcessTerrain(terrain2);
 			
 			//renderer.ProcessEntity(dragonEntity);
 			renderer.ProcessEntity(grassEntity);

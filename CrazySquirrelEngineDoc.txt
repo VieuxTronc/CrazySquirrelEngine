@@ -1,0 +1,3 @@
+#Mip Mapping
+Basically it's a texture LOD method. 
+https://fr.wikipedia.org/wiki/MIP_mapping

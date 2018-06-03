@@ -29,7 +29,7 @@ public class StaticShader extends ShaderProgram
 	public StaticShader ()
 	{
 		super(VERTEX_FILE, FRAGMENT_FILE); 
-	}
+	} 
 	
 	@Override
 	protected void BindAttributes() 
