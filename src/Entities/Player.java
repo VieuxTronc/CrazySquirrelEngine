@@ -5,6 +5,7 @@ import org.lwjgl.util.vector.Vector3f;
 import Debug.Debug;
 import Models.TexturedModel;
 import RenderEngine.DisplayManager;
+import Terrains.Terrain;
 
 public class Player extends Entity 
 {
@@ -13,7 +14,7 @@ public class Player extends Entity
 	private static final float GRAVITY = - 70;
 	private static final float JUMP_POWER = 30;
 	
-	private static final float TERRAIN_HEIGHT = 0;
+	//private static final float TERRAIN_HEIGHT = 0;
 	
 	private float currentSpeed = 0;
 	private float currentTurnSpeed = 0; 
@@ -25,12 +26,12 @@ public class Player extends Entity
 	{
 		super(_model, _position, _rotX, _rotY, _rotZ, _scale);
 	}
-	
+	 
 	public float getCurrentSpeed() {return currentSpeed;}
 	
 	public float getCurrentTurnSpeed() {return currentTurnSpeed;}
 	
-	public void Move ()
+	public void Move (Terrain terrain)
 	{
 		CheckInputs();
 		super.IncreaseRotation(0, currentTurnSpeed * DisplayManager.GetFrameTimeSeconds(),  0);
@@ -40,11 +41,14 @@ public class Player extends Entity
 		super.IncreasePosition(dx, 0, dz);
 		upwardsSpeed += GRAVITY * DisplayManager.GetFrameTimeSeconds();
 		super.IncreasePosition(0, upwardsSpeed * DisplayManager.GetFrameTimeSeconds(), 0);
-		if(super.getPosition().y < TERRAIN_HEIGHT)
+		
+		float terrainHeight = terrain.GetHeightOfTerrain(super.getPosition().x, super.getPosition().z);
+		
+		if(super.getPosition().y < terrainHeight)
 		{
 			upwardsSpeed = 0;
-			isInAir = false;
-			super.getPosition().y = TERRAIN_HEIGHT;
+			isInAir = false; 
+			super.getPosition().y = terrainHeight;
 		}
 	}
 	
