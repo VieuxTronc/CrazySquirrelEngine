@@ -32,7 +32,6 @@ public class MainGameLoop
 		DisplayManager.CreateDisplay();
 		
 		ArrayList<Entity> entitiesList = new ArrayList<>();
-		ArrayList<Light> ligthList = new ArrayList<>();
 		ArrayList<Terrain> terrainList = new ArrayList<>();
 		
 		//Debug
@@ -55,7 +54,13 @@ public class MainGameLoop
 		Entity grassEntity = new Entity(grassModel, new Vector3f(1, 1, -5), 0, 0, 0, 1);
 		
 		//Light
-		Light light = new Light(new Vector3f(0,0,-20), new Vector3f(1,1,1));
+		Light sun = new Light(new Vector3f(0,100,0), new Vector3f(.4f,.4f,.4f));
+		Light pointLight = new Light(new Vector3f(300,50,300), new Vector3f(0,10,0), new Vector3f(1, 0.01f, 0.002f));
+		Light pointLight2 = new Light(new Vector3f(0,10,0), new Vector3f(10,10,0), new Vector3f(1, 0.02f, 0.005f));
+		ArrayList<Light> lights = new ArrayList<>(); 
+		lights.add(sun);
+		lights.add(pointLight);
+		lights.add(pointLight2);
 		
 		//Terrain
 		TerrainTexture backgroundTexture = new TerrainTexture(loader.LoadTexture("grassy2"));
@@ -70,8 +75,8 @@ public class MainGameLoop
 		
 		//Box 
 		TexturedModel box = new TexturedModel(ObjLoader.LoadObjModel("box", loader), new ModelTexture(loader.LoadTexture("box")));
-		Entity boxEntity = new Entity(box, new Vector3f(55, 5, 55), 0, 0, 0, 5);
-		Entity boxEntity2 = new Entity(box, new Vector3f(55, 5, 80), 0, 0, 0, 5);
+		Entity boxEntity = new Entity(box, new Vector3f(0, 50, 0), 0, 0, 0, 5);
+		Entity boxEntity2 = new Entity(box, new Vector3f(300, 10, 300), 0, 0, 0, 5);
 		
 		//Fern
 		ModelTexture fernModelTexture = new ModelTexture(loader.LoadTexture("fern"));
@@ -88,10 +93,9 @@ public class MainGameLoop
 		
 		//Scene
 		entitiesList.add(grassEntity);
-		ligthList.add(light);
 		terrainList.add(terrain);
 		
-		Scene scene_1 = new Scene("scene_1", entitiesList, ligthList, terrainList);
+		Scene scene_1 = new Scene("scene_1", entitiesList, lights, terrainList);
 		Debug.DebugLog("SCENE - Name : " + scene_1.getSceneName().toString() + " // Created : " + scene_1.getCreation().format(DateTimeFormatter.BASIC_ISO_DATE).toString()); 
 		
 		//GUIS
@@ -120,7 +124,7 @@ public class MainGameLoop
 			renderer.ProcessEntity(grassEntity);
 			renderer.ProcessEntity(fernEntity);
 			
-			renderer.Render(light, camera);
+			renderer.Render(lights, camera);
 			
 			guiRenderer.Render(guiList);
 			

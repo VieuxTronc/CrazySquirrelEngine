@@ -56,14 +56,14 @@ public class MasterRenderer
 		GL11.glDisable(GL11.GL_CULL_FACE);
 	}
 	
-	public void Render (Light sun, Camera cam)
+	public void Render (ArrayList<Light> lights, Camera cam)
 	{
 		Prepare();
 		
 		//Entity rendering 
 		shader.Start();
 		shader.LoadSkyColor(RED, GREEN, BLUE);
-		shader.LoadLight(sun);
+		shader.LoadLights(lights);
 		shader.LoadViewMatrix(cam);
 		renderer.Render(entities);
 		shader.Stop();
@@ -71,7 +71,7 @@ public class MasterRenderer
 		//Terrain rendering 
 		terrainShader.Start();
 		terrainShader.LoadSkyColor(RED, GREEN, BLUE);;
-		terrainShader.LoadLight(sun);
+		terrainShader.LoadLights(lights);
 		terrainShader.LoadViewMatrix(cam);
 		terrainRenderer.Render(terrains);
 		terrainShader.Stop();
