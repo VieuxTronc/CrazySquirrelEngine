@@ -10,6 +10,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.DefaultCaret;
 
+import org.w3c.dom.html.HTMLIsIndexElement;
+
 public class Console extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
@@ -19,7 +21,7 @@ public class Console extends JFrame
 	{
 		this.setTitle("Debug Log");
 		this.setIconImage(null);
-		this.setSize(900, 600);
+		this.setSize(500, 500);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
 		this.setAlwaysOnTop(true);

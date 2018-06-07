@@ -41,7 +41,7 @@ public class MainGameLoop
 		//new EditorWindow();
 		
 		Loader loader = new Loader(); 
-		MasterRenderer renderer = new MasterRenderer();
+		MasterRenderer renderer = new MasterRenderer(loader);
 		
 		//Dragon
 		RawModel dragonRawModel = ObjLoader.LoadObjModel("dragon", loader);

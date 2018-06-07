@@ -14,6 +14,7 @@ import Models.Light;
 import Models.TexturedModel;
 import Shaders.StaticShader;
 import Shaders.TerrainShader;
+import Skybox.SkyboxRenderer;
 import Terrains.Terrain;
 
 public class MasterRenderer 
@@ -37,12 +38,15 @@ public class MasterRenderer
 	private TerrainRenderer terrainRenderer;
 	private TerrainShader terrainShader = new TerrainShader();
 	
-	public MasterRenderer ()
+	private SkyboxRenderer skyboxRenderer;
+	
+	public MasterRenderer (Loader loader)
 	{
 		EnableCulling();
 		CreateProjectionMatrix();
 		renderer = new EntityRenderer(shader, projectionMatrix);
 		terrainRenderer = new TerrainRenderer(terrainShader, projectionMatrix);
+		skyboxRenderer = new SkyboxRenderer(loader, projectionMatrix);
 	}
 	
 	public static void EnableCulling ()
@@ -70,11 +74,13 @@ public class MasterRenderer
 		
 		//Terrain rendering 
 		terrainShader.Start();
-		terrainShader.LoadSkyColor(RED, GREEN, BLUE);;
+		terrainShader.LoadSkyColor(RED, GREEN, BLUE);
 		terrainShader.LoadLights(lights);
 		terrainShader.LoadViewMatrix(cam);
 		terrainRenderer.Render(terrains);
 		terrainShader.Stop();
+		
+		skyboxRenderer.Render(cam, RED, GREEN, BLUE);
 		
 		terrains.clear();
 		entities.clear();
