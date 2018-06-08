@@ -7,6 +7,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import Debug.Console;
 import Debug.Debug;
+import Editor.EditorWindow;
 import Entities.Camera;
 import Entities.Entity;
 import Entities.Player;
