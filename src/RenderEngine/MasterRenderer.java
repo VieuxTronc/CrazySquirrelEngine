@@ -40,6 +40,8 @@ public class MasterRenderer
 	
 	private SkyboxRenderer skyboxRenderer;
 	
+	public Matrix4f getProjectionMatrix() {return projectionMatrix;}
+	
 	public MasterRenderer (Loader loader)
 	{
 		EnableCulling();

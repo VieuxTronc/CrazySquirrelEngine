@@ -25,6 +25,7 @@ import Terrains.Terrain;
 import Textures.ModelTexture;
 import Textures.TerrainTexture;
 import Textures.TerrainTexturePack;
+import Utils.MousePicker;
 
 public class MainGameLoop 
 {
@@ -107,6 +108,9 @@ public class MainGameLoop
 		guiList.add(guiTexture2);
 		GuiRenderer guiRenderer = new GuiRenderer(loader);
 		
+		//MousePicker
+		MousePicker mPicker = new MousePicker(renderer.getProjectionMatrix(), camera, terrain);
+		
 		while(!Display.isCloseRequested())
 		{
 			//game logic
@@ -128,6 +132,9 @@ public class MainGameLoop
 			renderer.Render(lights, camera);
 			
 			guiRenderer.Render(guiList);
+			
+			mPicker.Update();
+			Debug.DebugLog("" + mPicker.GetCurrentTerrainPoint());
 			
 			DisplayManager.UpdateDisplay();
 		}

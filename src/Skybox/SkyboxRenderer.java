@@ -98,7 +98,7 @@ public class SkyboxRenderer
 	{
 		time += DisplayManager.GetFrameTimeSeconds() * 1000;
 		time %= 24000;
-		Debug.DebugLog("" + time);
+
 		int texture1;
 		int texture2;
 		float blendFactor;
