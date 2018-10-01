@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,8 +12,9 @@ import javax.swing.SwingConstants;
 public class EditorWindow extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
-	private static final Color BLUE = new Color(200, 200, 255);
+	//private static final Color BLUE = new Color(200, 200, 255);
 
+	
 	public EditorWindow ()
 	{
 		//Frame
@@ -24,20 +24,20 @@ public class EditorWindow extends JFrame
 	    frame.setJMenuBar(new EditorMenuBar());
 	     
 	    //View port
-     	ColorPanel viewport = new ColorPanel(BLUE, 500, 420);
+     	//ColorPanel viewport = new ColorPanel(BLUE, 500, 420);
      	
      	//Fill content panel
      	//Note that a JFrame's contentPane uses BorderLayout by default
 	    frame.getContentPane().add(new EditorToolBar(800, 80), BorderLayout.NORTH);
 	    frame.getContentPane().add(new EditorExplorer(300, 500), BorderLayout.WEST);
-	    frame.getContentPane().add(viewport, BorderLayout.CENTER);
+	    frame.getContentPane().add(new EditorViewport(), BorderLayout.CENTER);
+	    EditorViewport.CreateViewport();
 	    frame.getContentPane().add(new EditorConsole(800, 100), BorderLayout.SOUTH);
 	    frame.setMinimumSize(new Dimension(1100, 800));
 	    frame.pack();
 	    frame.setLocationByPlatform(true);
 	    frame.setVisible(true);
 	}
-	
 }
 
 class ColorPanel extends JPanel 

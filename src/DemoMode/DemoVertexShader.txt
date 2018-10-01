@@ -1,0 +1,16 @@
+#version 150 core
+
+in vec2 position;
+in float time;
+in vec2 size;
+
+out vec4 pass_Color;
+out vec2 pass_TextureCoord;
+
+void main(void) 
+{
+	gl_Position = position;
+	
+	pass_Color = in_Color;
+	pass_TextureCoord = in_TextureCoord;
+}

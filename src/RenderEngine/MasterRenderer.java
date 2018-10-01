@@ -3,11 +3,10 @@ package RenderEngine;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
-
+import Debug.DebugText;
 import Entities.Camera;
 import Entities.Entity;
 import Models.Light;
@@ -39,6 +38,8 @@ public class MasterRenderer
 	private TerrainShader terrainShader = new TerrainShader();
 	
 	private SkyboxRenderer skyboxRenderer;
+	
+	//private DebugText debugText = new DebugText(); 
 	
 	public Matrix4f getProjectionMatrix() {return projectionMatrix;}
 	
@@ -82,7 +83,10 @@ public class MasterRenderer
 		terrainRenderer.Render(terrains);
 		terrainShader.Stop();
 		
+		//Skybox 
 		skyboxRenderer.Render(cam, RED, GREEN, BLUE);
+		
+		//debugText.Render(); 
 		
 		terrains.clear();
 		entities.clear();

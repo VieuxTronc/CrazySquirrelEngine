@@ -1,0 +1,10 @@
+#version 140
+uniform float time;
+uniform vec2 size;
+out vec4 out_Color;
+in vec4 gl_FragCoord;
+
+void main()
+{	
+	out_Color = vec4(1.0, 0.5, 1.0, 1.0);
+}

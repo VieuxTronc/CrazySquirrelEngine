@@ -7,6 +7,11 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import Debug.Console;
 import Debug.Debug;
+import Debug.DebugInputs;
+import Debug.DebugText;
+import DemoMode.DemoRenderer;
+import DemoMode.DemoTexture;
+import Editor.EditorViewport;
 import Editor.EditorWindow;
 import Entities.Camera;
 import Entities.Entity;
@@ -38,6 +43,8 @@ public class MainGameLoop
 		
 		//Debug
 		Console console = new Console();
+		DebugText debugText = new DebugText(); 
+		DebugInputs debugInputs = new DebugInputs(); 
 		
 		//Editor window
 		//new EditorWindow();
@@ -74,6 +81,9 @@ public class MainGameLoop
 		TerrainTexture blendMap = new TerrainTexture(loader.LoadTexture("blendMap"));
 		
 		Terrain terrain = new Terrain(0, 0, loader, texturePack, blendMap, "heightmap");
+		Terrain terrain2 = new Terrain(-1, 0, loader, texturePack, blendMap, "heightmap");
+		Terrain terrain3 = new Terrain(-1, -1, loader, texturePack, blendMap, "heightmap");
+		Terrain terrain4 = new Terrain(0, -1, loader, texturePack, blendMap, "heightmap");
 		
 		//Box 
 		TexturedModel box = new TexturedModel(ObjLoader.LoadObjModel("box", loader), new ModelTexture(loader.LoadTexture("box")));
@@ -102,14 +112,16 @@ public class MainGameLoop
 		
 		//GUIS
 		ArrayList<GuiTexture> guiList = new ArrayList<>();
-		GuiTexture guiTexture = new GuiTexture(loader.LoadTexture("engine"), new Vector2f(0.5f, 0.5f), new Vector2f(0.25f, 0.25f));
-		GuiTexture guiTexture2 = new GuiTexture(loader.LoadTexture("engine"), new Vector2f(0.4f, 0.4f), new Vector2f(0.25f, 0.25f));
+		GuiTexture guiTexture = new GuiTexture(loader.LoadTexture("engine"), new Vector2f(0.0f, 0.0f), new Vector2f(0.25f, 0.25f));
 		guiList.add(guiTexture);
-		guiList.add(guiTexture2);
 		GuiRenderer guiRenderer = new GuiRenderer(loader);
 		
 		//MousePicker
-		MousePicker mPicker = new MousePicker(renderer.getProjectionMatrix(), camera, terrain);
+		//MousePicker mPicker = new MousePicker(renderer.getProjectionMatrix(), camera, terrain);
+		
+		//Demo Mode
+		DemoTexture demoTexture = new DemoTexture(new Vector2f(0.0f,0.0f), new Vector2f(1.0f,1.0f));
+		DemoRenderer demoRenderer = new DemoRenderer(loader);
 		
 		while(!Display.isCloseRequested())
 		{
@@ -125,24 +137,36 @@ public class MainGameLoop
 			renderer.ProcessEntity(player);
 			
 			renderer.ProcessTerrain(terrain);
+			renderer.ProcessTerrain(terrain2);
+			renderer.ProcessTerrain(terrain3);
+			renderer.ProcessTerrain(terrain4);
 			
 			renderer.ProcessEntity(grassEntity);
 			renderer.ProcessEntity(fernEntity);
 			
 			renderer.Render(lights, camera);
 			
-			guiRenderer.Render(guiList);
+			//guiRenderer.Render(guiList);
 			
-			mPicker.Update();
-			Debug.DebugLog("" + mPicker.GetCurrentTerrainPoint());
+			debugText.Render();
+			debugInputs.Listen();
+			
+			//mPicker.Update();
+			//Debug.DebugLog("" + mPicker.GetCurrentTerrainPoint());
+			
+			//EditorViewport.UpdateViewport();
+			
+			demoRenderer.Render(demoTexture);
 			
 			DisplayManager.UpdateDisplay();
 		}
 		
 		guiRenderer.CleanUp();
+		demoRenderer.CleanUp();
 		renderer.CleanUp();
 		loader.CleanUp();
 		console.CloseConsole();
+		//EditorViewport.CloseViewport();
 		DisplayManager.CloseDisplay();
 	}
 }

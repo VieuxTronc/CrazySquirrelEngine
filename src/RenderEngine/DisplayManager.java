@@ -7,16 +7,20 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.PixelFormat;
+import org.lwjgl.util.vector.Vector2f;
 
-public class DisplayManager 
+import Debug.Debug;
+
+public class DisplayManager
 {
 	private static final int WIDTH = 1280; 
 	private static final int HEIGHT = 720;
 	private static final int FPS_CAP = 120;
+	private static final Vector2f screenSize = new Vector2f(WIDTH, HEIGHT);
 	
 	private static long lastFrameTime; 
 	private static float delta; 
-	
+
 	public static void CreateDisplay ()
 	{
 		ContextAttribs attribs = new ContextAttribs(3,2).withForwardCompatible(true).withProfileCore(true); 
@@ -25,7 +29,7 @@ public class DisplayManager
 		{
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
 			Display.create(new PixelFormat(), attribs);
-			Display.setTitle("Crazy Squirrel Engine");
+			Display.setTitle("Crazy Squirrel Engine - " + lastFrameTime);
 			Display.setResizable(false);
 		}  
 		catch (LWJGLException e) 
@@ -34,16 +38,18 @@ public class DisplayManager
 		}
 		
 		GL11.glViewport(0, 0, WIDTH, HEIGHT);
+		screenSize.x = WIDTH;
+		screenSize.y = HEIGHT;
 		lastFrameTime = GetCurrentTime();
 	}
-	
+
 	public static void UpdateDisplay ()
 	{
 		Display.sync(FPS_CAP);
 		Display.update();
 		long currentFrameTime = GetCurrentTime(); 
 		delta = (currentFrameTime - lastFrameTime) / 1000f;
-		lastFrameTime = currentFrameTime; 
+		lastFrameTime = currentFrameTime;
 	}
 	
 	public static void CloseDisplay ()
@@ -55,10 +61,16 @@ public class DisplayManager
 	private static long GetCurrentTime ()
 	{
 		return Sys.getTime() * 1000 / Sys.getTimerResolution(); 
+		
 	}
 	
 	public static float GetFrameTimeSeconds()
 	{
 		return delta;
+	}
+
+	public static Vector2f GetDisplaySize ()
+	{
+		return screenSize;
 	}
 }

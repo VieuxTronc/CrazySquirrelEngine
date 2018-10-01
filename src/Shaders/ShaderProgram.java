@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.FloatBuffer;
-
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
+import Debug.Debug;
+import DemoMode.DemoShader;
 
 public abstract class ShaderProgram 
 {
@@ -22,6 +23,19 @@ public abstract class ShaderProgram
 	public ShaderProgram (String vertexFile, String fragmentFile)
 	{
 		vertexShaderID = LoadShader(vertexFile, GL20.GL_VERTEX_SHADER);
+		fragmentShaderID = LoadShader(fragmentFile, GL20.GL_FRAGMENT_SHADER);
+		
+		programID = GL20.glCreateProgram(); 
+		GL20.glAttachShader(programID, vertexShaderID);
+		GL20.glAttachShader(programID, fragmentShaderID);
+		BindAttributes();
+		GL20.glLinkProgram(programID);
+		GL20.glValidateProgram(programID); 
+		GetAllUniformLocations();
+	}
+	
+	public ShaderProgram (String fragmentFile)
+	{
 		fragmentShaderID = LoadShader(fragmentFile, GL20.GL_FRAGMENT_SHADER);
 		
 		programID = GL20.glCreateProgram(); 
@@ -126,7 +140,8 @@ public abstract class ShaderProgram
 		{
 			System.err.println("Could not read file");
 			e.printStackTrace();
-			System.exit(-1);
+			return 0; 
+			//System.exit(-1);
 		}
 		
 		int shaderID = GL20.glCreateShader(type);
@@ -135,11 +150,27 @@ public abstract class ShaderProgram
 		
 		if(GL20.glGetShaderi(shaderID, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE)
 		{
-			System.out.println(GL20.glGetShaderInfoLog(shaderID, 500));
-			System.err.println("Could not compile shader");
-			System.exit(-1);
+			LoadShader(DemoShader.getDefaultFragmentFile(), GL20.GL_FRAGMENT_SHADER);
+			Debug.DebugLog(GL20.glGetShaderInfoLog(shaderID, 500));
+			Debug.DebugLog("Could not compile shader");
 		}
-		
+				
 		return shaderID; 
+	}
+	
+	public void RefreshShader (String file)
+	{
+		CleanUp();
+		
+		//vertexShaderID = LoadShader(file2, GL20.GL_VERTEX_SHADER);
+		fragmentShaderID = LoadShader(file, GL20.GL_FRAGMENT_SHADER);
+		
+		programID = GL20.glCreateProgram(); 
+		//GL20.glAttachShader(programID, vertexShaderID);
+		GL20.glAttachShader(programID, fragmentShaderID);
+		BindAttributes();
+		GL20.glLinkProgram(programID);
+		GL20.glValidateProgram(programID); 
+		GetAllUniformLocations();
 	}
 }

@@ -4,13 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Insets;
-
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.text.DefaultCaret;
-
-import org.w3c.dom.html.HTMLIsIndexElement;
 
 public class Console extends JFrame 
 {
@@ -19,9 +16,9 @@ public class Console extends JFrame
 	
 	public Console() 
 	{
-		this.setTitle("Debug Log");
+		this.setTitle("Debug Logs");
 		this.setIconImage(null);
-		this.setSize(500, 500);
+		this.setSize(800, 500);
 		this.setResizable(true);
 		this.setLocationRelativeTo(null);
 		this.setAlwaysOnTop(true);
@@ -33,7 +30,7 @@ public class Console extends JFrame
 		textArea.setForeground(Color.white);
 		
 		JScrollPane scrollPane = new JScrollPane(textArea);
-		scrollPane.setPreferredSize(new Dimension(500, 300));
+		scrollPane.setPreferredSize(new Dimension(800, 500));
 		scrollPane.setAutoscrolls(true);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		
